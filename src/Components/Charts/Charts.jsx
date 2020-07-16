@@ -7,12 +7,18 @@ import DatePicker from "react-datepicker";
  
 import "react-datepicker/dist/react-datepicker.css";
 
+import BadgeMaterialUi from '@material-ui/core/Badge';
+import Avatar from '@material-ui/core/Avatar';
+import CircleExclamationOff from "../../Icons/CircleExclamationOff"
+import Me from "../../Icons/Me.PNG";
+
 export default class Charts extends Component {
 
     constructor(props) {
         super(props);
         this.state = { 
-            startDate: new Date()
+            startDate: new Date(),
+            count: 0
         }
     }
 
@@ -86,6 +92,20 @@ export default class Charts extends Component {
         this.chart = chart;
     }
 
+    inc1 = () => {
+        this.inc(1);
+    }
+    dec1 = () => {
+        this.inc(-1);
+    }
+    inc = (n) => {
+        let count = this.state.count + n;
+        if (count < 0) count = 0;
+        this.setState({
+          count: count
+        });
+    }
+    
     debugTest = () => {
 
         let response = [
@@ -133,7 +153,6 @@ export default class Charts extends Component {
         series.dataFields.dateX = "date";
         series.name = "[font-size: 30px]" + name + "[/]";
 
-
         series.tooltipText = "{dateX}: [b]{valueY}[/]";
         series.strokeWidth = 2;
         
@@ -171,6 +190,8 @@ export default class Charts extends Component {
 
 
     render() {
+
+
         return (
             <div>
                 {/* <div id="SalesChart" style={{ width: "100%", height: "500px" }}></div> */}
@@ -181,7 +202,51 @@ export default class Charts extends Component {
                     />                    
                 </div>
                 <div id="LinesChart" style={{ width: "100%", height: "400px" }}></div>
-                
+                <div>
+                    <table>
+                    <tbody>
+                        <tr>                        
+                        <td>
+                            <div>
+                                <BadgeMaterialUi color="primary" overlap="circle" badgeContent={this.state.count}>
+                                    <CircleExclamationOff width="30px" height="30px"/>
+                                </BadgeMaterialUi>                                                                                                      
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <BadgeMaterialUi color="primary" overlap="circle" badgeContent={this.state.count}>
+                                    <Avatar alt="jessie" src={Me} />
+                                </BadgeMaterialUi>                                                                                                      
+                            </div>
+                        </td>
+                        <td>
+                        <div>
+                            {this.state.count == 0 ?
+                                <BadgeMaterialUi color="primary" overlap="circle" 
+                                        anchorOrigin={{vertical: 'bottom',horizontal: 'right',}} color="default"
+                                        variant="dot">
+                                    <Avatar alt="jessie" src={Me} />
+                                </BadgeMaterialUi>  
+                            :
+                                <BadgeMaterialUi color="primary" overlap="circle" 
+                                            anchorOrigin={{vertical: 'bottom',horizontal: 'right',}} color="error"
+                                            variant="dot">
+                                        <Avatar alt="jessie" src={Me} />
+                            </BadgeMaterialUi>
+                            }                                                                                                          
+                        </div> 
+                        </td>
+                        <td>
+                            <div>
+                                <button onClick={this.inc1.bind(this)}>+1</button>
+                                <button onClick={this.dec1.bind(this)}>-1</button>
+                            </div>
+                        </td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </div>
             </div>
         )
     }

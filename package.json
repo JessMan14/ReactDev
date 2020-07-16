@@ -8,7 +8,6 @@
     "react": "^16.8.4",
     "react-datepicker": "^3.0.0",
     "react-dom": "^16.8.4",
-    "react-notification-badge": "^1.5.1",
     "react-scripts": "2.1.8"
   },
   "scripts": {

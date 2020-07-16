@@ -7,13 +7,10 @@ import DatePicker from "react-datepicker";
  
 import "react-datepicker/dist/react-datepicker.css";
 
-import NotificationBadge from 'react-notification-badge';
-//import {Effect} from 'react-notification-badge';
-
-import { makeStyles } from '@material-ui/core/styles';
-import Badge from '@material-ui/core/Badge';
-import CircleExclamation from "../../Icons/CircleExclamation"
-
+import BadgeMaterialUi from '@material-ui/core/Badge';
+import Avatar from '@material-ui/core/Avatar';
+import CircleExclamationOff from "../../Icons/CircleExclamationOff"
+import Me from "../../Icons/Me.PNG";
 
 export default class Charts extends Component {
 
@@ -156,7 +153,6 @@ export default class Charts extends Component {
         series.dataFields.dateX = "date";
         series.name = "[font-size: 30px]" + name + "[/]";
 
-
         series.tooltipText = "{dateX}: [b]{valueY}[/]";
         series.strokeWidth = 2;
         
@@ -194,17 +190,7 @@ export default class Charts extends Component {
 
 
     render() {
-        let container = {
-            height: '50px',
-            width: '50px',
-            display: 'inline-block',
-            margin: '5px',
-            backgroundColor: 'gray'
-          }
 
-        let title = {
-            width: '100px'
-        }
 
         return (
             <div>
@@ -217,30 +203,40 @@ export default class Charts extends Component {
                 </div>
                 <div id="LinesChart" style={{ width: "100%", height: "400px" }}></div>
 
-
                 <div>
                     <table>
                     <tbody>
-
-                        <tr>
+                        <tr>                        
                         <td>
-                            <div style={container}>
-                            <NotificationBadge count={this.state.count} style={{color: 'green', backgroundColor:'yellow', top: '', left: '0px', bottom: '0px', right: ''}}/>
+                            <div>
+                                <BadgeMaterialUi color="primary" overlap="circle" badgeContent={this.state.count}>
+                                    <CircleExclamationOff width="30px" height="30px"/>
+                                </BadgeMaterialUi>                                                                                                      
                             </div>
                         </td>
                         <td>
-                            <div style={container}>
-                            <NotificationBadge count={this.state.count} style={{color: 'white', backgroundColor:'blue', top: '', left: '', bottom: '0px', right: '0px'}}>
-                                <CircleExclamation width="30px" height="30px"/>
-                            </NotificationBadge>
-                            </div>
-                        </td>                        
-                        <td>
                             <div>
-                                <Badge color="primary" overlap="circle" badgeContent={this.state.count}>
-                                    <CircleExclamation width="30px" height="30px"/>
-                                </Badge>                                                                                                      
+                                <BadgeMaterialUi color="primary" overlap="circle" badgeContent={this.state.count}>
+                                    <Avatar alt="jessie" src={Me} />
+                                </BadgeMaterialUi>                                                                                                      
                             </div>
+                        </td>
+                        <td>
+                        <div>
+                            {this.state.count == 0 ?
+                                <BadgeMaterialUi color="primary" overlap="circle" 
+                                        anchorOrigin={{vertical: 'bottom',horizontal: 'right',}} color="default"
+                                        variant="dot">
+                                    <Avatar alt="jessie" src={Me} />
+                                </BadgeMaterialUi>  
+                            :
+                                <BadgeMaterialUi color="primary" overlap="circle" 
+                                            anchorOrigin={{vertical: 'bottom',horizontal: 'right',}} color="error"
+                                            variant="dot">
+                                        <Avatar alt="jessie" src={Me} />
+                            </BadgeMaterialUi>
+                            }                                                                                                          
+                        </div> 
                         </td>
                         <td>
                             <div>

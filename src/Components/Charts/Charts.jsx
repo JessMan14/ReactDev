@@ -7,12 +7,16 @@ import DatePicker from "react-datepicker";
  
 import "react-datepicker/dist/react-datepicker.css";
 
+import NotificationBadge from 'react-notification-badge';
+import {Effect} from 'react-notification-badge';
+
 export default class Charts extends Component {
 
     constructor(props) {
         super(props);
         this.state = { 
-            startDate: new Date()
+            startDate: new Date(),
+            count: 0
         }
     }
 
@@ -85,6 +89,21 @@ export default class Charts extends Component {
 
         this.chart = chart;
     }
+
+    inc1(){
+        this.inc(1);
+      }
+      dec1(){
+        this.inc(-1);
+      }
+      inc(n){
+        let count = this.state.count + n;
+        if (count < 0) count = 0;
+        this.setState({
+          count: count
+        });
+      }
+    
 
     debugTest = () => {
 
@@ -171,6 +190,18 @@ export default class Charts extends Component {
 
 
     render() {
+        let container = {
+            height: '50px',
+            width: '50px',
+            display: 'inline-block',
+            margin: '5px',
+            backgroundColor: 'gray'
+          }
+
+        let title = {
+            width: '100px'
+        }
+
         return (
             <div>
                 {/* <div id="SalesChart" style={{ width: "100%", height: "500px" }}></div> */}
@@ -181,7 +212,108 @@ export default class Charts extends Component {
                     />                    
                 </div>
                 <div id="LinesChart" style={{ width: "100%", height: "400px" }}></div>
-                
+
+                <div>
+                    <table>
+                    <tbody>
+                        <tr>
+                        <td>
+                            <div style={container}>
+                            <NotificationBadge count={this.state.count} className={'abc'} effect={Effect.ROTATE_X}/>
+                            </div>
+                        </td>
+                        <td style={title}>Effect.ROTATE_X</td>
+                        </tr>
+                        <tr>
+                        <td>
+                            <div style={container}>
+                            <NotificationBadge count={this.state.count} effect={Effect.ROTATE_Y}/>
+                            </div>
+                        </td>
+                        <td style={title}>Effect.ROTATE_Y</td>
+                        </tr>
+
+                        <tr>
+                        <td>
+                            <div style={container}>
+                            <NotificationBadge count={this.state.count} effect={Effect.SCALE}/>
+                            </div>
+                        </td>
+                        <td style={title}>Effect.SCALE</td>
+                        </tr>
+
+                        <tr>
+                        <td>
+                            <div style={container}>
+                            <NotificationBadge count={this.state.count} effect={[null, null, {top:'-5px'}, {top:'0px'}]}/>
+                            </div>
+                        </td>
+                        <td style={title}>Custome effect</td>
+                        </tr>
+
+                        <tr>
+                        <td>
+                            <div style={container}>
+                            <NotificationBadge count={this.state.count} effect={Effect.SCALE} frameLength={15.0}/>
+                            </div>
+                        </td>
+                        <td style={title}>frameLength:15.0</td>
+                        <td>
+                            <div style={container}>
+                            <NotificationBadge count={this.state.count} effect={Effect.SCALE} frameLength={30.0}/>
+                            </div>
+                        </td>
+                        <td style={title}>frameLength:30.0</td>
+                        <td>
+                            <div style={container}>
+                            <NotificationBadge count={this.state.count} effect={Effect.SCALE} frameLength={45.0}/>
+                            </div>
+                        </td>
+                        <td style={title}>frameLength:45.0</td>
+                        <td>
+                            <div style={container}>
+                            <NotificationBadge count={this.state.count} effect={Effect.SCALE} frameLength={60.0}/>
+                            </div>
+                        </td>
+                        <td style={title}>frameLength:60.0</td>
+                        <td>
+                            <div style={container}>
+                            <NotificationBadge count={this.state.count} effect={Effect.SCALE} frameLength={120.0}/>
+                            </div>
+                        </td>
+                        <td style={title}>frameLength:120.0</td>
+                        </tr>
+
+
+                        <tr>
+                        <td>
+                            <div style={container}>
+                            <NotificationBadge count={this.state.count} effect={Effect.SCALE} style={{color: 'green', backgroundColor:'yellow', top: '', left: '0px', bottom: '0px', right: ''}}/>
+                            </div>
+                        </td>
+                        <td>
+                            <div style={container}>
+                            <NotificationBadge count={this.state.count} style={{color: 'white', backgroundColor:'blue', top: '', left: '', bottom: '0px', right: '0px'}}/>
+                            </div>
+                        </td>                        
+                        <td style={title}>Custome style</td>
+                        </tr>
+
+                        <tr>
+                        <td>
+                            <div style={container}>
+                            <NotificationBadge label='!' count={this.state.count} effect={Effect.SCALE} />
+                            </div>
+                        </td>
+                        <td style={title}>Label badge</td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </div>
+                <div>
+                    <button onClick={this.inc1.bind(this)}>+1</button>
+                    <button onClick={this.dec1.bind(this)}>-1</button>
+                </div>
             </div>
         )
     }

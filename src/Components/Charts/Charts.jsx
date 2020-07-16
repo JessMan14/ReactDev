@@ -202,7 +202,6 @@ export default class Charts extends Component {
                     />                    
                 </div>
                 <div id="LinesChart" style={{ width: "100%", height: "400px" }}></div>
-
                 <div>
                     <table>
                     <tbody>

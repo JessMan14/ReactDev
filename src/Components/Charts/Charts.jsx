@@ -10,6 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import BadgeMaterialUi from '@material-ui/core/Badge';
 import Avatar from '@material-ui/core/Avatar';
 import CircleExclamationOff from "../../Icons/CircleExclamationOff"
+import CircleExclamationOn from "../../Icons/CircleExclamationOn"
 import Me from "../../Icons/Me.PNG";
 
 export default class Charts extends Component {
@@ -213,6 +214,15 @@ export default class Charts extends Component {
                                 </BadgeMaterialUi>                                                                                                      
                             </div>
                         </td>
+                        <td>
+                            <div>
+                                {this.state.count == 0 ?
+                                    <CircleExclamationOff width="30px" height="30px"/> 
+                                :
+                                    <CircleExclamationOn width="30px" height="30px"/>        
+                                }
+                            </div>    
+                        </td>                        
                         <td>
                             <div>
                                 <BadgeMaterialUi color="primary" overlap="circle" badgeContent={this.state.count}>
